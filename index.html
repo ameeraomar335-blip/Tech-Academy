@@ -24,26 +24,31 @@
       <div>
         <div style="font-size: 12px; color: #E5A882; letter-spacing: 1px; margin-bottom: 4px;">EARLY BIRD — ENDS 30 JUNE</div>
         <div style="font-family: Georgia, serif; font-size: 24px; font-weight: bold;">
-          RM 79 <span style="font-size: 14px; text-decoration: line-through; color: #8A8296; font-family: 'Courier New', monospace; font-weight: normal;">RM 119</span>
+          RM 150 <span style="font-size: 14px; text-decoration: line-through; color: #8A8296; font-family: 'Courier New', monospace; font-weight: normal;">RM 200</span>
         </div>
-        <div style="font-size: 12px; color: #B5B0C4; margin-top: 4px;">Price goes up to RM 119 on 1 July.</div>
+        <div style="font-size: 12px; color: #B5B0C4; margin-top: 4px;">Price goes up to RM 200 on 1 July.</div>
       </div>
-      <div id="countdown" style="text-align: center; min-width: 160px;">
+      <div id="countdown" style="text-align: center; min-width: 200px;">
         <div style="font-size: 11px; color: #B5B0C4; margin-bottom: 6px; letter-spacing: 1px;">TIME LEFT</div>
-        <div style="display: flex; gap: 8px; justify-content: center;">
+        <div style="display: flex; gap: 8px; justify-content: center; align-items: flex-start;">
           <div style="text-align: center;">
-            <div id="cd-days" style="font-family: Georgia, serif; font-size: 26px; font-weight: bold; color: #E5A882;">--</div>
+            <div id="cd-days" style="font-family: Georgia, serif; font-size: 26px; font-weight: bold; color: #E5A882; min-width: 36px;">--</div>
             <div style="font-size: 10px; color: #8A8296;">days</div>
           </div>
           <div style="font-family: Georgia, serif; font-size: 26px; color: #4A4458; padding-top: 2px;">:</div>
           <div style="text-align: center;">
-            <div id="cd-hours" style="font-family: Georgia, serif; font-size: 26px; font-weight: bold; color: #E5A882;">--</div>
+            <div id="cd-hours" style="font-family: Georgia, serif; font-size: 26px; font-weight: bold; color: #E5A882; min-width: 36px;">--</div>
             <div style="font-size: 10px; color: #8A8296;">hrs</div>
           </div>
           <div style="font-family: Georgia, serif; font-size: 26px; color: #4A4458; padding-top: 2px;">:</div>
           <div style="text-align: center;">
-            <div id="cd-mins" style="font-family: Georgia, serif; font-size: 26px; font-weight: bold; color: #E5A882;">--</div>
+            <div id="cd-mins" style="font-family: Georgia, serif; font-size: 26px; font-weight: bold; color: #E5A882; min-width: 36px;">--</div>
             <div style="font-size: 10px; color: #8A8296;">min</div>
+          </div>
+          <div style="font-family: Georgia, serif; font-size: 26px; color: #4A4458; padding-top: 2px;">:</div>
+          <div style="text-align: center;">
+            <div id="cd-secs" style="font-family: Georgia, serif; font-size: 26px; font-weight: bold; color: #E5A882; min-width: 36px;">--</div>
+            <div style="font-size: 10px; color: #8A8296;">sec</div>
           </div>
         </div>
       </div>
@@ -127,7 +132,7 @@
     </p>
 
     <div style="margin-bottom: 16px; font-size: 14px; color: #4A4458;">
-      Early bird price: <strong style="color: #2B2640;">RM 79</strong> until 30 June — then RM 119.
+      Early bird price: <strong style="color: #2B2640;">RM 150</strong> until 30 June — then RM 200.
     </div>
 
     <a href="https://forms.gle/X6KSSxNPMkp3NFXK9" style="display: inline-block; background: #B5562E; color: #FFFFFF; font-family: Georgia, serif; font-weight: bold; padding: 14px 28px; border-radius: 4px; text-decoration: none; font-size: 16px;">
@@ -146,9 +151,9 @@
 
   <script>
     function updateCountdown() {
-      const deadline = new Date('2026-06-30T23:59:59+08:00');
-      const now = new Date();
-      const diff = deadline - now;
+      var deadline = new Date('2026-06-30T23:59:59+08:00');
+      var now = new Date();
+      var diff = deadline.getTime() - now.getTime();
 
       if (diff <= 0) {
         document.getElementById('countdown').innerHTML =
@@ -156,17 +161,19 @@
         return;
       }
 
-      const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var secs  = Math.floor((diff % (1000 * 60)) / 1000);
 
       document.getElementById('cd-days').textContent  = String(days).padStart(2, '0');
       document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
       document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
+      document.getElementById('cd-secs').textContent  = String(secs).padStart(2, '0');
     }
 
     updateCountdown();
-    setInterval(updateCountdown, 60000);
+    setInterval(updateCountdown, 1000);
   </script>
 
 </body>
